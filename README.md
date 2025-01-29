@@ -29,7 +29,7 @@ These circumnstances illustrate the importance of **developing methods to draw i
 
 ## 2. Scope of this project
 
-Reddit is a social media platform organised as a network of thematic communities, known as *subreddits*, where users engage in discussions. Our aim is to estimate quantities such as the **total number of comments** or the **total score** in the discussions of a given Reddit community over a given period of time. Specifically, we ask **how many discussions it is necessary to sample to obtain an estimate within a prescribed error $\bm{\epsilon}$.**
+Reddit is a social media platform organised as a network of thematic communities, known as *subreddits*, where users engage in discussions. Our aim is to estimate quantities such as the **total number of comments** or the **total score** in the discussions of a given Reddit community over a given period of time. Specifically, we ask **how many discussions it is necessary to sample to obtain an estimate within a prescribed error $\epsilon$.**
 
 Despite their simplicity, metrics like the total number of comments and the total score can be good proxies for the **overall activity** of a community, which is an important denominator.
 
@@ -41,7 +41,7 @@ $$ C = \sum_{k=1}^{D} N_k $$
 
 We now assume it is possible to obtain a random sample from the population $[N_1,\ldots,N_D]$, where each discussion is included in the sample with a known probability $p$, independently of all other discussions. In pricinple, this could be achieved e.g. by following a procedure similar to [3,4] where the authors crawled YouTube videos by entering randomly-generated IDs into YouTube's API.
 
-This sampling scheme may be modelled by introducing a family $[\theta_1,\ldots,\theta_D]$ of independent $\mathsf{Bernoulli(p)}$ random variables where either $\theta_k = 1$ or $\theta_k = 0$ depending on whether discussion-$k$ has been included in the sample. The sum of all the comments in the sample is then:
+This sampling scheme may be modelled by introducing a family $[\theta_1,\ldots,\theta_D]$ of independent $\mathsf{Bernoulli(p)}$ random variables where either $\theta_k = 1$ or $\theta_k = 0$ depending on whether discussion $k$ has been included in the sample. The sum of all the comments in the sample is then:
 
 $$ \hat{c} = \sum_{k=1}^{D} \theta_k N_k $$
 
@@ -49,7 +49,7 @@ By definition, the probability of including a discussion in the sample is $\math
 
 $$ \hat{C} = \hat{c}/p $$
 
-This is an unbiased estimate, as $\mathbb{E}[\hat{C}] = C$. The question is to assess its precision. One possible source of concern is that **the distribution $\bm{[N_1, \ldots , N_D]}$ of the number of comments per discussions is heavy-tailed**. Informally, this means that **most discussions receive only a handful of comments, whereas a small but sizeable minority of discussions receives order of magnitude more** (Figure 2). If the sampling probability $p$ is too small, the tail of the distribution will not be sampled appropriately, causing the estimate to be imprecise (Figures 2, 3).
+This is an unbiased estimate, as $\mathbb{E}[\hat{C}] = C$. The question is to assess its precision. One possible source of concern is that **the distribution $[N_1, \ldots , N_D]$ of the number of comments per discussions is heavy-tailed**. Informally, this means that **most discussions receive only a handful of comments, whereas a small but sizeable minority of discussions receives order of magnitude more** (Figure 2). If the sampling probability $p$ is too small, the tail of the distribution will not be sampled appropriately, causing the estimate to be imprecise (Figures 2, 3).
 
 <img src="figures/sample.png" width="500" class = "center"/>
 
@@ -61,7 +61,7 @@ Consider the ratio between the in-sample estimate $\hat{C}$ and the true number 
 
 $$ \boxed{\hat{r} = \hat{C}/C} $$
 
-We have seen that $\mathbb{E}[\hat{r}]=1$ as the estimate $\hat{C}$ is unbiased. **The standard deviation of $\bm{\hat{r}}$ can be used to assess the precision of our estimate**. We can express $\mathrm{std}[\hat{r}]$ as a function of the sampling probability $p$ or as a function of the expected sample size $d=pD$ where $D$ is the population size i.e. the total number of discussions. Both choices have their advantages, as illustrated in the next section.
+We have seen that $\mathbb{E}[\hat{r}]=1$ as the estimate $\hat{C}$ is unbiased. **The standard deviation of $\hat{r}$ can be used to assess the precision of our estimate**. We can express $\mathrm{std}[\hat{r}]$ as a function of the sampling probability $p$ or as a function of the expected sample size $d=pD$ where $D$ is the population size i.e. the total number of discussions. Both choices have their advantages, as illustrated in the next section.
 
 #### As a function of the sampling probability $p$
 A straightforward computation shows that for a sampling probability $p\ll 1$ we have:
@@ -133,9 +133,9 @@ Figure ? shows that typically we have $2 \le \Vert N \Vert_2 / \Vert N \Vert_1 \
 - Between $d \approx 1 \times 10^4$ and $d \approx 5 \times 10^5$ for a **1% standard error** (Figure ?C).
 
 In terms of the sampling probability $p$ we need:
-- $p < 0.05 $ for a **10% standard error** (Figure ?A).
-- $0.05 < p < 0.2 $ for a **5% standard error** (Figure ?B).
-- $p > 0.4 $ for a **1% standard error** (Figure ?C).
+- $p < 0.05$ for a **10% standard error** (Figure ?A).
+- $0.05 < p < 0.2$ for a **5% standard error** (Figure ?B).
+- $p > 0.4$ for a **1% standard error** (Figure ?C).
 
 In conclusion: **an estimate within a 10% or a 5% error seem within reach** in most subreddits during the 12-month period considered. Whereas **a 1% error may potentially be out of reach.**
 
@@ -153,15 +153,15 @@ In conclusion: **an estimate within a 10% or a 5% error seem within reach** in m
 <img src="figures/top500p05.png" width="400" />
 <img src="figures/top500p01.png" width="400" />
 
-**Figure 6:** **Figure 5:** Sampling probability required to achieve a desired standard error (standard error = standard deviation of the ratio $\hat{r}$) in the largest 500 subreddits of 2022.
+**Figure 5:** Sampling probability required to achieve a desired standard error (standard error = standard deviation of the ratio $\hat{r}$) in the largest 500 subreddits of 2022.
 
 ## 7. Deviations from normality
 
 So we have seen that the situation is not too dire for many Reddit communities. Still, the estimate $\hat{r}=\hat{C}/C$ does have a large variance when $[N_1, \ldots , N_D]$ is heavy-tailed (as in the case of most subreddits) and the sampling probability $p$ is not large enough (Figure 1). Such a large variance indicates a **failure of the normal approximation from the Central Limit Theorem**. In this case $\hat{r}$ has a skewed distribution, as the estimate is very sensitive to the particular choice of the sample (Figure 7).
 
-<img src="figures/histogram-p-large.png" width="600" /> <br/>
-<img src="figures/histogram-p-medium.png" width="600" /> <br/>
-<img src="figures/histogram-p-small.png" width="600" />
+<img src="figures/histogram-p-large.png" width="700" /> <br/>
+<img src="figures/histogram-p-medium.png" width="700" /> <br/>
+<img src="figures/histogram-p-small.png" width="700" />
 
 Figure 7: Distribution of the ratio $\hat{r} = \hat{C}/C$ between the estimated and the true number of comments, for different sampling probabilities $p$ over $n=10^6$ repetitions. Whereas $\hat{r}$ = 1 on average for all sampling probabilities $p$, the distribution gets progressively skewed to the right as the $p$ gets smaller. This strong deviation normality is particularly visible in the quantile-quantile plot. Dataset: all $1.9\times10^9$ Reddit discussions from 2005 to 2022.
 
@@ -187,7 +187,7 @@ $$ \boxed{\mathrm{std}[\hat{r}] \approx \frac{\sqrt{\sum\limits_{k=1}^{D} \theta
 
 This turns out to be a slight **underestimate of the true variance**, but **the approximation is not too bad if the sampling probablity $p$ is not extremely small** (Figure 8). In any case, a large in-sample variance (e.g. $0.2$ or $0.3$) is an indicator that $p$ is too small.
 
-<img src="figures/variance_approx.png" width="600" />
+<img src="figures/variance_approx.png" width="500" />
 
 Figure 8: In-sample approximation for the variance of the ratio $\hat{r}$ as a function of the sampling probability $p$. Each data point is obtained by obtaining several independent samples for each $p$, and then computing mean and standard deviation of the in-sample variances. Dataset: all $1.9\times10^9$ Reddit discussions from 2005 to 2022.
 
