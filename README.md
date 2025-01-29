@@ -139,19 +139,19 @@ In terms of the sampling probability $p$ we need:
 
 In conclusion: **an estimate within a 10% or a 5% error seem within reach** in most subreddits during the 12-month period considered. Whereas **a 1% error may potentially be out of reach.**
 
-<img src="figures/top_500_scaling_constant.png" width="600" />
+<img src="figures/top500scalingconstant.png" width="400" />
 
 **Figure 4:** The scaling constant $\Vert N \Vert_2 / \Vert N \Vert_1$ in the largest 500 subreddits of 2022. Large values of $\Vert N \Vert_2 / \Vert N \Vert_1$ require a larger sample size to achieve a desired precision.
 
-<img src="figures/top_500_d10.png" width="600" />
-<img src="figures/top_500_d05.png" width="600" />
-<img src="figures/top_500_d01.png" width="600" />
+<img src="figures/top500d10.png" width="400" />
+<img src="figures/top500d05.png" width="400" />
+<img src="figures/top500d01.png" width="400" />
 
 **Figure 5:** Sampling size required to achieve a desired standard error (standard error = standard deviation of the ratio $\hat{r}$) in the largest 500 subreddits of 2022.
 
-<img src="figures/top_500_p10.png" width="600" />
-<img src="figures/top_500_p05.png" width="600" />
-<img src="figures/top_500_p01.png" width="600" />
+<img src="figures/top500p10.png" width="400" />
+<img src="figures/top500p05.png" width="400" />
+<img src="figures/top500p01.png" width="400" />
 
 **Figure 6:** **Figure 5:** Sampling probability required to achieve a desired standard error (standard error = standard deviation of the ratio $\hat{r}$) in the largest 500 subreddits of 2022.
 
@@ -159,9 +159,9 @@ In conclusion: **an estimate within a 10% or a 5% error seem within reach** in m
 
 So we have seen that the situation is not too dire for many Reddit communities. Still, the estimate $\hat{r}=\hat{C}/C$ does have a large variance when $[N_1, \ldots , N_D]$ is heavy-tailed (as in the case of most subreddits) and the sampling probability $p$ is not large enough (Figure 1). Such a large variance indicates a **failure of the normal approximation from the Central Limit Theorem**. In this case $\hat{r}$ has a skewed distribution, as the estimate is very sensitive to the particular choice of the sample (Figure 7).
 
-<img src="figures/histogram_p_large.png" width="600" /> <br/>
-<img src="figures/histogram_p_medium.png" width="600" /> <br/>
-<img src="figures/histogram_p_small.png" width="600" />
+<img src="figures/histogram-p-large.png" width="600" /> <br/>
+<img src="figures/histogram-p-medium.png" width="600" /> <br/>
+<img src="figures/histogram-p-small.png" width="600" />
 
 Figure 7: Distribution of the ratio $\hat{r} = \hat{C}/C$ between the estimated and the true number of comments, for different sampling probabilities $p$ over $n=10^6$ repetitions. Whereas $\hat{r}$ = 1 on average for all sampling probabilities $p$, the distribution gets progressively skewed to the right as the $p$ gets smaller. This strong deviation normality is particularly visible in the quantile-quantile plot. Dataset: all $1.9\times10^9$ Reddit discussions from 2005 to 2022.
 
